@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Card, Image, Button , Header } from "semantic-ui-react";
-
+import { Card, Image, Button } from "semantic-ui-react";
+import { Link } from 'react-router-dom'
 function UnAnsweredQuestions(props) {
     const question = props.questions[props.id];
     const author = props.users[question.author];
@@ -11,8 +11,8 @@ const handleQuestion = (e) => {
     
   };
   return (
-    <div>
-    <Header as='h1'>UnAnswered Questions</Header>
+    <Link to={`/poll/${question.id}`}>
+    
       <Card>
         <Card.Content>
           <Image
@@ -35,7 +35,7 @@ const handleQuestion = (e) => {
         </Card.Content>
       </Card>
       <br />
-    </div>
+    </Link>
   );
 }
 

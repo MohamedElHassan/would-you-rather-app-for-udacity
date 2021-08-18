@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { Card, Image, Button, Header} from "semantic-ui-react";
 
 function AnsweredQuestions(props) {
@@ -11,8 +12,8 @@ const handleQuestion = (e) => {
     
   };
   return (
-    <div>
-    <Header as='h1'>Answered Questions</Header>
+    <Link to={`/poll/${question.id}`}>
+    
       <Card>
         <Card.Content>
           <Image
@@ -35,7 +36,7 @@ const handleQuestion = (e) => {
         </Card.Content>
       </Card>
       <br />
-    </div>
+    </Link>
   );
 }
 

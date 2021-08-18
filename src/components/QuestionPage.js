@@ -1,12 +1,15 @@
 import React ,{useState} from 'react';
 import { connect } from 'react-redux'
 import { Card, Image, Button , Header ,Form, Radio } from "semantic-ui-react";
-
+import { handleSaveAnswer } from '../actions/questions'
+import NavBar from './NavBar'
 function QuestionPage(props){
+  
     const [chooseValue,handleChooseValue] = useState('')
-
-    const question = props.questions[props.id];
+    const { id } = props.match.params
+    const question = props.questions[id];
     const author = props.users[question.author];
+    const { authedUser} = props
     const handleChange=(e,text)=> {
         handleChooseValue(text.value)
         console.log(chooseValue)
@@ -14,10 +17,12 @@ function QuestionPage(props){
     const handleSubmit= (e)=>{
         
         e.preventDefault();
-        
+        props.dispatch(handleSaveAnswer({authedUser:authedUser,qid:question.id,answer:author.answers}))
     }
+    console.log('Author',author.answers)
 return(
     <div>
+    
         <Header as='h1'>Question</Header>
       <Card>
         <Card.Content>

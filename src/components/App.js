@@ -1,30 +1,37 @@
 import React, { Fragment }  from "react";
+import { BrowserRouter as Router , Route } from "react-router-dom";
 import { connect } from "react-redux";
 import Dashboard from "./Dashboard";
 import "semantic-ui-css/semantic.min.css";
 import NewQuestion from './NewQuestion'
 import Leaderboard from './Leaderboard'
 import Login from './Login'
-import NavBar from './NavBar'
-import AnsweredQuestions from './AnsweredQuestions'
-import UnAnsweredQuestions from "./UnAnsweredQuestions";
 import QuestionPage from './QuestionPage'
+import NavBar from "./NavBar";
 function App(props) {
   // useEffect(() => {
   //   props.dispatch(handleReceiveQuestions());
   //   props.dispatch(handleReceiveUsers());
   // });
   return (
+    <Router>
+    
     <div>
-      
-      {props.loading === true ? null : 
+    
+     {/* {props.authedUser === true ? <NavBar/> : <Login/>} */}
+      {props.loading === true ? <Login/> : 
       <Fragment>
-        <NavBar />
-      <QuestionPage id='8xf0y6ziyjabvozdd253nd' />
-      
+      <NavBar/>
+        <Route path='/' exact component={Dashboard}/>
+        <Route path='/new' component={NewQuestion} />
+        <Route path='/leaderboard' component={Leaderboard}/>
+        <Route path='/poll/:id' component={QuestionPage} />
+        <Route path='/login' component={Login} />
+        
       </Fragment>
       }
     </div>
+    </Router>
   );
 }
 function mapStateToProps({ authedUser }) {

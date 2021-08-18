@@ -1,12 +1,8 @@
-import React, { Component, useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
-
-import { handleAddQuestion } from "../actions/questions";
+import NavBar from './NavBar'
 import { Card,  Image } from "semantic-ui-react";
-
 function Leaderboard({ users }) {
-  console.log("The leaderboard props", users);
-
   const scores = users.map((user) => {
     return {
       questions: user.questions.length,
@@ -15,27 +11,31 @@ function Leaderboard({ users }) {
       user,
     };
   }).sort((a,b)=>b.totalScore - a.totalScore);
+  
   return (
     <div>
       <ul>
         {scores.map((score) => (
-          <li key={score.user.id}>
+          <div key={score.user.id}>
             <Card>
               <Image src={score.user.avatarURL} wrapped ui={false} />
               <Card.Content>
                 <Card.Header>{score.user.name}</Card.Header>
                 <Card.Description>
-                  <span className=''>Question answered {score.answers}</span>
+                  <span className=''>Question answered : {score.answers}</span>
                 </Card.Description>
                 <Card.Description>
-                  Created Questions{score.questions}
+                  Created Questions : {score.questions}
                 </Card.Description>
               </Card.Content>
-              <Card.Content extra>Score {score.totalScore}</Card.Content>
+              <Card.Content extra>Score : {score.totalScore}</Card.Content>
             </Card>
-          </li>
+            <br/>  
+          </div>
         ))}
+        
       </ul>
+      
     </div>
   );
 }

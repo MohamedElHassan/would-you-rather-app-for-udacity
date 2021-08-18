@@ -11,9 +11,10 @@ export function receiveQuestions(questions) {
     questions,
   };
 }
-export function answerQuestion() {
+export function answerQuestion(question) {
   return {
     type: ANSWER_QUESTION,
+    question,
     
   };
 }
@@ -41,12 +42,12 @@ export function handleReceiveQuestions() {
     });
   };
 }
-//Continue Here My nigga
-export function handleSaveAnswer(){
+//Continue Here
+export function handleSaveAnswer({authedUser,qid,answer}){
   return(dispatch)=>{
     
-    return _saveQuestionAnswer().then(()=>{
-      dispatch(answerQuestion())
+    return _saveQuestionAnswer({authedUser,qid,answer}).then(()=>{
+      dispatch(answerQuestion({authedUser,qid,answer}))
     })
   }
 }

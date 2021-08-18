@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Header } from "semantic-ui-react";
 import { handleAddQuestion } from "../actions/questions";
-import { Button, Form } from "semantic-ui-react";
-
+import { Button, Form , Segment } from "semantic-ui-react";
+import NavBar from './NavBar'
+import { Redirect } from "react-router-dom";
 function NewQuestion(props) {
   const [value1, setValue1] = useState('');
   const [value2, setValue2] = useState('');
+  const [toHome, setToHome] = useState(false)
   const { authedUser } = props;
 
   const handleChange1 = (e) => {
@@ -20,6 +22,7 @@ function NewQuestion(props) {
     setValue2(text);
   };
   const handleSubmit = (e) => {
+    e.preventDefault();
     const { authedUser } = props;
     let question = {
       optionOneText: value1,
@@ -27,16 +30,22 @@ function NewQuestion(props) {
       author: authedUser,
     };
 
-    console.log(question);
+    
     props.dispatch(handleAddQuestion(question));
-    e.preventDefault();
+    
 
     setValue1('');
     setValue2('');
+    setToHome(true)
   };
+  if(toHome === true){
+    return <Redirect to='/'/>
+  }
+    
   return (
     <div>
-      <Header as='h1' textAlign='center'>
+    <Segment placeholder>
+    <Header as='h1' textAlign='center'>
         Create New Question
       </Header>
       <Form>
@@ -55,10 +64,14 @@ function NewQuestion(props) {
           />
         </Form.Field>
 
-        <Button type='submit' onClick={handleSubmit}>
+        <Button primary type='submit' onClick={handleSubmit}>
           Submit
         </Button>
       </Form>
+    
+  </Segment>
+      
+      
     </div>
   );
 }

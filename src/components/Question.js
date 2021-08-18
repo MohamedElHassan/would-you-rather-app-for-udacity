@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Card, Image, Button , Header } from "semantic-ui-react";
+import { Card, Image, Button } from "semantic-ui-react";
 
 function Question(props) {
     const question = props.questions[props.id];
@@ -12,7 +12,7 @@ const handleQuestion = (e) => {
   };
   return (
     <div>
-    <Header as='h1'>Question</Header>
+    
       <Card>
         <Card.Content>
           <Image

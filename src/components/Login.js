@@ -1,13 +1,20 @@
-import React from "react";
-import { Dropdown } from "semantic-ui-react";
+import React ,{ useState} from "react";
+import { Dropdown ,  Header , Segment} from "semantic-ui-react";
 import { connect } from "react-redux";
 import { setAuthedUser} from '../actions/authedUser'
+import {  Redirect } from "react-router-dom";
 function Login(props) {
+  const [toHome, handleToHome] = useState(false)
   const { users } = props;
   const handleChange = (e,result) => {
     e.preventDefault();
-    props.dispatch(setAuthedUser(result.value))  
+    handleToHome(true) 
+    props.dispatch(setAuthedUser(result.value)) 
   };
+  
+  if(toHome === true){
+    return <Redirect to='/' />
+  }
   
   const usersOption = users.map((user) => {
     return {
@@ -17,15 +24,29 @@ function Login(props) {
       image: { avatar: true, src: user.avatarURL },
     };
   });
+
+  if(toHome === true){
+    return <Redirect to='/' />
+  }
  return (
+   
     <div>
-      Choose User
+    <Segment placeholder>
+    <Header as='h1' textAlign='center'>
+        Login
+      </Header>
+      
       <Dropdown
         onChange={handleChange}
         inline
         options={usersOption}
         defaultValue={usersOption.value}
-      />
+      />Please, Choose User
+     
+    
+  </Segment>
+
+     
     </div>
   );
 }

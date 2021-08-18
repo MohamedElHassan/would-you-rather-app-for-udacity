@@ -1,13 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import Question from "./Question";
+import { Header , Divider, Grid,  Segment  } from "semantic-ui-react";
 import AnsweredQuestions from "./AnsweredQuestions";
 import UnAnsweredQuestions from "./UnAnsweredQuestions";
+import NavBar from './NavBar'
 function Dashboard({questionId , answeredQuestions , unAnsweredQuestions}) {
-  
-
-
-
   // // // const userList = Object.keys(users).forEach(uid => {
   // // //   const user = users[uid];
   // // //   const answeredQuestions = Object.keys(user.answers).length;
@@ -16,27 +14,41 @@ function Dashboard({questionId , answeredQuestions , unAnsweredQuestions}) {
   // // //   usersWithScore[uid] = user;
   // // });
   // console.log(userList)
+
+  questionId.map((qId)=>(
+    <div key={qId}>
+    <Question id={qId} key={qId} />
+    </div>
+  ))
   return (
+    
     <div>
-    {/* {answeredQuestions.map((qId)=>(
-      <div>
+    <Segment>
+    <Grid columns={2} relaxed='very'>
+      <Grid.Column>
+      <Header as='h1'>Un Answered Questions</Header>
+    {unAnsweredQuestions.map((qId)=>(
+      <div key={qId}>
+      
+      <UnAnsweredQuestions id={qId} key={qId}  />
+      </div>
+    ))}
+      </Grid.Column>
+      <Grid.Column>
+      <Header as='h1'>Answered Questions</Header>
+    {answeredQuestions.map((qId)=>(
+      <div key={qId}>
       
       <AnsweredQuestions id={qId} key={qId}  />
       </div>
-    ))} */}
-
-    {questionId.map((qId)=>(
-      <div>
-      <Question id={qId} key={qId} />
-      </div>
     ))}
+      </Grid.Column>
+    </Grid>
+    <Divider vertical></Divider>
+</Segment>
 
-    {/* {unAnsweredQuestions.map((qId)=>(
-      <div>
-      {console.log(qId)}
-      <UnAnsweredQuestions id={qId} key={qId}  />
-      </div>
-    ))} */}
+    
+   
 
     </div>
   );
@@ -50,16 +62,11 @@ function mapStateToProps({ users, questions, authedUser }) {
   // const answeredQuestions = Object.keys(user.answers).length;
   
   const answeredQuestions = Object.keys(user.answers);
-  
-  // const unAnsweredQuestions = Object.keys(questions).filter((q)=> q !== answeredQuestions )
-  
-  
-   const unAnsweredQuestions = Object.keys(questions).filter((q) =>
+  const unAnsweredQuestions = Object.keys(questions).filter((q) =>
      !answeredQuestions.includes(q)
    );
-   
-  
-  return {
+
+   return {
     questionId: Object.keys(questions).sort(
       (a, b) => questions[b].timestamp - questions[a].timestamp
     ),

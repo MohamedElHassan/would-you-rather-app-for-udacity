@@ -1,5 +1,4 @@
-import { RECEIVE_USERS } from "../actions/users";
-import { ADD_QUESTION } from "../actions/questions";
+import { ADD_QUESTION, ANSWER_QUESTION } from "../actions/questions";
 import { INITIAL_DATA } from "../actions/shared";
 
 function user(state = {}, action) {
@@ -23,6 +22,23 @@ export default function users(state = {}, action) {
         ...state,
         [action.question.author]: user(state[action.question.author], action),
       };
+    case ANSWER_QUESTION:
+      const {qid, answer , authedUser} = action
+      const newUsers = {
+        ...users,
+        [authedUser]: {
+          ...users[authedUser],
+          answers: {
+            ...users[authedUser].answers,
+            [qid]: answer,
+          },
+        },
+      };
+
+      return{
+        ...state,
+        newUsers
+      }
     default:
       return state;
   }
