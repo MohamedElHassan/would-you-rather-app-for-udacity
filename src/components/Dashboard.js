@@ -4,7 +4,6 @@ import Question from "./Question";
 import { Header , Divider, Grid,  Segment  } from "semantic-ui-react";
 import AnsweredQuestions from "./AnsweredQuestions";
 import UnAnsweredQuestions from "./UnAnsweredQuestions";
-import NavBar from './NavBar'
 function Dashboard({questionId , answeredQuestions , unAnsweredQuestions}) {
   // // // const userList = Object.keys(users).forEach(uid => {
   // // //   const user = users[uid];
@@ -57,10 +56,9 @@ function mapStateToProps({ users, questions, authedUser }) {
   // if (!users) 
   //   return
   // console.log(authedUser, users);
-  const user = users[authedUser];
   // output the questions array and filter it to exclude the answered Questions
   // const answeredQuestions = Object.keys(user.answers).length;
-  
+  const user = users[authedUser];
   const answeredQuestions = Object.keys(user.answers);
   const unAnsweredQuestions = Object.keys(questions).filter((q) =>
      !answeredQuestions.includes(q)

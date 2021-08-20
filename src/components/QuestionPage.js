@@ -23,9 +23,6 @@ function QuestionPage(props){
         
         
     }
-const answer = chooseValue
-
-const qid = props.questions[id]
     
 return(
     <div>
