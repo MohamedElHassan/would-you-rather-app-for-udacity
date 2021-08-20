@@ -8,6 +8,7 @@ import Leaderboard from './Leaderboard'
 import Login from './Login'
 import QuestionPage from './QuestionPage'
 import NavBar from "./NavBar";
+import  ProtectedRoute  from '../protectedRoute'
 function App(props) {
   // useEffect(() => {
   //   props.dispatch(handleReceiveQuestions());
@@ -19,17 +20,17 @@ function App(props) {
     <div>
     
      {/* {props.authedUser === true ? <NavBar/> : <Login/>} */}
-      {props.loading === true ? <Login/> : 
+      
       <Fragment>
       <NavBar/>
-        <Route path='/' exact component={Dashboard}/>
-        <Route path='/new' component={NewQuestion} />
-        <Route path='/leaderboard' component={Leaderboard}/>
-        <Route path='/poll/:id' component={QuestionPage} />
-        <Route path='/login' component={Login} />
+        <ProtectedRoute path='/' exact component={Dashboard}/>
+        <ProtectedRoute path='/new' component={NewQuestion} />
+        <ProtectedRoute path='/leaderboard' component={Leaderboard}/>
+        <ProtectedRoute path='/poll/:id' component={QuestionPage} />
+        <ProtectedRoute path='/login' component={Login} />
         
       </Fragment>
-      }
+      
     </div>
     </Router>
   );

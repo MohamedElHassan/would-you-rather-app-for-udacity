@@ -1,20 +1,26 @@
 import React ,{ useState} from "react";
-import { Dropdown ,  Header , Segment} from "semantic-ui-react";
+import { Button, Dropdown ,  Header , Segment} from "semantic-ui-react";
 import { connect } from "react-redux";
 import { setAuthedUser} from '../actions/authedUser'
-import {  Redirect } from "react-router-dom";
+import {  Redirect , withRouter } from "react-router-dom";
+import { login ,isAuthenticated} from '../loginAuth'
 function Login(props) {
-  const [toHome, handleToHome] = useState(false)
+  // const [toHome, handleToHome] = useState(false)
   const { users } = props;
   const handleChange = (e,result) => {
     e.preventDefault();
-    handleToHome(true) 
+    // handleToHome(true) 
     props.dispatch(setAuthedUser(result.value)) 
   };
-  
-  if(toHome === true){
-    return <Redirect to='/' />
+  const handleLogin = (e,result)=>{
+    e.preventDefault();
+    login()
+    isAuthenticated()
+    console.log(props, isAuthenticated())
+    props.history.push('/')
   }
+  
+ 
   
   const usersOption = users.map((user) => {
     return {
@@ -25,9 +31,9 @@ function Login(props) {
     };
   });
 
-  if(toHome === true){
-    return <Redirect to='/' />
-  }
+  // if(toHome === true){
+  //   return <Redirect to='/' />
+  // }
  return (
    
     <div>
@@ -42,7 +48,9 @@ function Login(props) {
         options={usersOption}
         defaultValue={usersOption.value}
       />Please, Choose User
-     
+     <Button primary onClick={handleLogin}>
+        Sign in
+     </Button>
     
   </Segment>
 
@@ -56,4 +64,4 @@ function mapStateToProps({ users }) {
     users: Object.values(users),
   };
 }
-export default connect(mapStateToProps)(Login);
+export default withRouter(connect(mapStateToProps)(Login));

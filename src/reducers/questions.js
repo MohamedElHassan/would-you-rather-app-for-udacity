@@ -11,20 +11,19 @@ export default function questions(state = {}, action) {
         [action.question.id]: action.question,
       };
     case ANSWER_QUESTION:
-      const {qid,answer , authedUser} = action
-      const newQuestions = {
-        ...questions,
-        [qid]: {
-          ...questions[qid],
-          [answer]: {
-            ...questions[qid][answer],
-            votes: questions[qid][answer].votes.concat([authedUser]),
-          },
-        },
+      const {qid,answer , authedUser}   = action
+      const currentQuestionOption = state[qid][answer]
+      const newQuestion = {
+      [qid]:{
+        ...state[qid],
+        ...currentQuestionOption,
+        votes:[...currentQuestionOption.votes.concat(authedUser)]
+        
+      }
       };
       return{
         ...state,
-        newQuestions
+        ...newQuestion,
       }
     default:
       return state;

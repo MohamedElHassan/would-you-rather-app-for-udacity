@@ -1,15 +1,16 @@
 import React from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import { Card, Image, Button } from "semantic-ui-react";
-
 function Question(props) {
     const question = props.questions[props.id];
     const author = props.users[question.author];
     
-const handleQuestion = (e) => {
-    e.preventDefault();
-    
-  };
+    const handleQuestion = (e) => {
+      e.preventDefault();
+      props.history.push(`/poll/${question.id}`)
+      
+    };
   return (
     <div>
     
@@ -60,4 +61,4 @@ const mapStateToProps = (state) => ({
     });
 
 
-export default connect(mapStateToProps)(Question);
+export default withRouter(connect(mapStateToProps)(Question))

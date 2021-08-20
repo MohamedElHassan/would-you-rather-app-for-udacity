@@ -23,21 +23,21 @@ export default function users(state = {}, action) {
         [action.question.author]: user(state[action.question.author], action),
       };
     case ANSWER_QUESTION:
-      const {qid, answer , authedUser} = action
-      const newUsers = {
-        ...users,
+      const {qid, answer , authedUser } = action
+      const newUser = {
+        
         [authedUser]: {
-          ...users[authedUser],
-          answers: {
-            ...users[authedUser].answers,
-            [qid]: answer,
-          },
-        },
+          ...state[authedUser],
+          answers:{
+            ...state[authedUser].answers,
+            [qid]: answer
+          }
+        }
       };
 
       return{
         ...state,
-        newUsers
+        ...newUser
       }
     default:
       return state;

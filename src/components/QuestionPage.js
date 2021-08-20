@@ -2,9 +2,10 @@ import React ,{useState} from 'react';
 import { connect } from 'react-redux'
 import { Card, Image, Button , Header ,Form, Radio } from "semantic-ui-react";
 import { handleSaveAnswer } from '../actions/questions'
-import NavBar from './NavBar'
+import { _saveQuestionAnswer} from '../_DATA'
+import { withRouter } from 'react-router';
 function QuestionPage(props){
-  
+
     const [chooseValue,handleChooseValue] = useState('')
     const { id } = props.match.params
     const question = props.questions[id];
@@ -17,9 +18,15 @@ function QuestionPage(props){
     const handleSubmit= (e)=>{
         
         e.preventDefault();
-        props.dispatch(handleSaveAnswer({authedUser:authedUser,qid:question.id,answer:author.answers}))
+        props.dispatch(handleSaveAnswer({authedUser:authedUser,qid:question.id,answer:chooseValue}))
+        props.history.push('/')
+        
+        
     }
-    console.log('Author',author.answers)
+const answer = chooseValue
+
+const qid = props.questions[id]
+    
 return(
     <div>
     
@@ -35,30 +42,26 @@ return(
           <Card.Meta>
             <strong>Would You Rather</strong>
           </Card.Meta>
-         
-             
 
-          <Form.Field>
+         <Form.Field>
           <Radio
             label={question.optionOne.text}
             name='radioGroup'
-            value={question.optionOne.text}
-            checked={chooseValue === question.optionOne.text}
+            value='optionOne'
+            checked={chooseValue === 'optionOne'}
             onChange={handleChange}
           />
         </Form.Field>
-
 
         <Form.Field>
           <Radio
             label={question.optionTwo.text}
             name='radioGroup'
-            value={question.optionTwo.text}
-            checked={chooseValue === question.optionTwo.text}
+            value='optionTwo'
+            checked={chooseValue === 'optionTwo'}
             onChange={handleChange}
           />
         </Form.Field>
-
 
         </Card.Content>
         <Card.Content extra>
@@ -84,4 +87,4 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default connect(mapStateToProps)(QuestionPage)
+export default withRouter(connect(mapStateToProps)(QuestionPage))

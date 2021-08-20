@@ -11,10 +11,13 @@ export function receiveQuestions(questions) {
     questions,
   };
 }
-export function answerQuestion(question) {
+export function answerQuestion({authedUser, qid, answer}) {
   return {
     type: ANSWER_QUESTION,
-    question,
+    authedUser,
+    qid,
+    answer,
+    
     
   };
 }
@@ -47,7 +50,9 @@ export function handleSaveAnswer({authedUser,qid,answer}){
   return(dispatch)=>{
     
     return _saveQuestionAnswer({authedUser,qid,answer}).then(()=>{
-      dispatch(answerQuestion({authedUser,qid,answer}))
+      dispatch(answerQuestion({authedUser, qid, answer}))
+      
     })
   }
 }
+

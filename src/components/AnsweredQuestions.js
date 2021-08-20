@@ -1,16 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link ,withRouter} from "react-router-dom";
 import { Card, Image, Button, Header} from "semantic-ui-react";
 
 function AnsweredQuestions(props) {
     const question = props.questions[props.id];
     const author = props.users[question.author];
 
-const handleQuestion = (e) => {
-    e.preventDefault();
-    
-  };
+    const handleQuestion = (e) => {
+      e.preventDefault();
+      props.history.push(`/poll/${question.id}`)
+      
+    };
   return (
     <Link to={`/poll/${question.id}`}>
     
@@ -61,4 +62,4 @@ const mapStateToProps = (state) => ({
     });
 
 
-export default connect(mapStateToProps)(AnsweredQuestions);
+export default withRouter(connect(mapStateToProps)(AnsweredQuestions))
