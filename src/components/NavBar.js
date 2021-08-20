@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
 import { Icon, Menu } from 'semantic-ui-react'
-import Login from './Login';
 import {connect} from 'react-redux'
-import { NavLink, Redirect ,withRouter} from 'react-router-dom'
+import { NavLink ,withRouter} from 'react-router-dom'
 import { logout , isAuthenticated } from '../loginAuth';
 function NavBar(props){
     const [activeItem,handleActiveItem] = useState('Dashboard')

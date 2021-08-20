@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link ,withRouter} from "react-router-dom";
-import { Card, Image, Button, Header} from "semantic-ui-react";
+import { withRouter} from "react-router-dom";
+import { Card, Image, Button} from "semantic-ui-react";
 
 function AnsweredQuestions(props) {
     const question = props.questions[props.id];
@@ -9,11 +9,10 @@ function AnsweredQuestions(props) {
 
     const handleQuestion = (e) => {
       e.preventDefault();
-      props.history.push(`/poll/${question.id}`)
-      
+      props.history.push(`/poll/${question.id}`) 
     };
   return (
-    <Link to={`/poll/${question.id}`}>
+    <div>
     
       <Card>
         <Card.Content>
@@ -37,7 +36,7 @@ function AnsweredQuestions(props) {
         </Card.Content>
       </Card>
       <br />
-    </Link>
+    </div>
   );
 }
 

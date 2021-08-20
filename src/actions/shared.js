@@ -1,6 +1,4 @@
 import { _getData } from "../_DATA";
-import {AUTHED_ID} from './authedUser'
-import { setAuthedUser } from './authedUser'
 export const INITIAL_DATA = "INITIAL_DATA";
 
 export function initialData({ users, questions }) {

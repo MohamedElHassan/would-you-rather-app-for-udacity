@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Card, Image, Button } from "semantic-ui-react";
-import { Link , withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 function UnAnsweredQuestions(props) {
     const question = props.questions[props.id];
     const author = props.users[question.author];
@@ -10,9 +10,9 @@ const handleQuestion = (e) => {
     e.preventDefault();
     props.history.push(`/poll/${question.id}`)
     
-  };
+};
   return (
-    <Link to={`/poll/${question.id}`}>
+    <div>
     
       <Card>
         <Card.Content>
@@ -36,7 +36,7 @@ const handleQuestion = (e) => {
         </Card.Content>
       </Card>
       <br />
-    </Link>
+    </div>
   );
 }
 

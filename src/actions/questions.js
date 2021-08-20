@@ -1,5 +1,3 @@
-import {AUTHED_ID} from './authedUser'
-import { setAuthedUser } from './authedUser'
 import { _getQuestions , _saveQuestion , _saveQuestionAnswer } from "../_DATA";
 export const RECEIVE_QUESTIONS = "RECEIVE_QUESTIONS";
 export const ADD_QUESTION  = 'ADD_QUESTION'

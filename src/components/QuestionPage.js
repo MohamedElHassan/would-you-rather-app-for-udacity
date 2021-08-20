@@ -2,7 +2,6 @@ import React ,{useState} from 'react';
 import { connect } from 'react-redux'
 import { Card, Image, Button , Header ,Form, Radio } from "semantic-ui-react";
 import { handleSaveAnswer } from '../actions/questions'
-import { _saveQuestionAnswer} from '../_DATA'
 import { withRouter } from 'react-router';
 function QuestionPage(props){
 

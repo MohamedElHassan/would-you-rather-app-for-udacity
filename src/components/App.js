@@ -8,7 +8,6 @@ import Leaderboard from './Leaderboard'
 import Login from './Login'
 import QuestionPage from './QuestionPage'
 import NavBar from "./NavBar";
-import  ProtectedRoute  from '../protectedRoute'
 import PageNotFound from './PageNotFound'
 import Logout from "./Logout";
 class App extends Component {

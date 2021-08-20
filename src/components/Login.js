@@ -2,8 +2,7 @@ import React ,{ useState , useEffect} from "react";
 import { Button, Dropdown ,  Header , Segment} from "semantic-ui-react";
 import { connect } from "react-redux";
 import { setAuthedUser} from '../actions/authedUser'
-import {  Redirect , withRouter } from "react-router-dom";
-import { login ,isAuthenticated} from '../loginAuth'
+import { withRouter } from "react-router-dom";
 import { useDispatch } from 'react-redux'
 function Login(props) {
   useEffect(()=>{
