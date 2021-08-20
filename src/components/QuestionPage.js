@@ -19,7 +19,7 @@ function QuestionPage(props){
         
         e.preventDefault();
         props.dispatch(handleSaveAnswer({authedUser:authedUser,qid:question.id,answer:chooseValue}))
-        props.history.push('/')
+        props.history.push('/dashboard')
         
         
     }
@@ -63,7 +63,7 @@ return(
         </Card.Content>
         <Card.Content extra>
           <div className='ui two buttons'>
-            <Button basic color='green' onClick={handleSubmit}>
+            <Button disabled={chooseValue  === ''} basic color='green' onClick={handleSubmit}>
               Submit
             </Button>
           </div>

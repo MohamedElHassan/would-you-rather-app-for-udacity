@@ -1,5 +1,5 @@
-import React, { Fragment }  from "react";
-import { BrowserRouter as Router , Route } from "react-router-dom";
+import React, { Fragment , Component}  from "react";
+import { BrowserRouter , Route , Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import Dashboard from "./Dashboard";
 import "semantic-ui-css/semantic.min.css";
@@ -9,35 +9,49 @@ import Login from './Login'
 import QuestionPage from './QuestionPage'
 import NavBar from "./NavBar";
 import  ProtectedRoute  from '../protectedRoute'
-function App(props) {
-  // useEffect(() => {
-  //   props.dispatch(handleReceiveQuestions());
-  //   props.dispatch(handleReceiveUsers());
-  // });
+import PageNotFound from './PageNotFound'
+import Logout from "./Logout";
+class App extends Component {
+
+  render() {
+  
+  const { authedUser } = this.props;
+  if (!authedUser) {
+    return (
+      <BrowserRouter>
+        <Switch>
+          <Route  path="/" component={Login} />
+        </Switch>
+      </BrowserRouter>
+    );
+  }
   return (
-    <Router>
-    
-    <div>
-    
-     {/* {props.authedUser === true ? <NavBar/> : <Login/>} */}
-      
+    <BrowserRouter>
       <Fragment>
+       
       <NavBar/>
-        <ProtectedRoute path='/' exact component={Dashboard}/>
-        <ProtectedRoute path='/new' component={NewQuestion} />
-        <ProtectedRoute path='/leaderboard' component={Leaderboard}/>
-        <ProtectedRoute path='/poll/:id' component={QuestionPage} />
-        <ProtectedRoute path='/login' component={Login} />
+        <div  style={{ marginTop: "7em" }}>
+          <Switch> 
+            <Route path='/dashboard' component={Dashboard}/>
+            <Route path='/new'  component={NewQuestion} />
+            <Route path='/logout' exact component={Logout} />
+            <Route path='/leaderboard' component={Leaderboard}/>
+            <Route path='/poll/:id' component={QuestionPage} />   
+            <Route path="/404" exact component={PageNotFound} />
+            <Route path="/"  component={PageNotFound} />
+          </Switch>
+        </div>
         
       </Fragment>
-      
-    </div>
-    </Router>
+      </BrowserRouter>
+    
+    
   );
 }
-function mapStateToProps({ authedUser }) {
-  return {
-    loading: authedUser === null,
-  };
 }
+const mapStateToProps = state => {
+  // console.log(state);
+  const { authedUser } = state;
+  return { authedUser };
+};
 export default connect(mapStateToProps)(App);

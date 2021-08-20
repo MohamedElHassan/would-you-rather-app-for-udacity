@@ -6,4 +6,4 @@ export const logout = () => {
     sessionStorage.clear()
   }
   
-export const isAuthenticated = () => !!!sessionStorage.getItem('isAuthenticated')
+export const isAuthenticated = () => !!sessionStorage.getItem('isAuthenticated')

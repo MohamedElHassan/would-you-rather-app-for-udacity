@@ -8,5 +8,5 @@ export function setAuthedUser (id) {
   }
 }
 
-export const AUTHED_ID = null
+// export const AUTHED_ID = null
 

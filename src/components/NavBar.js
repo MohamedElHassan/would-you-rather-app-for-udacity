@@ -8,14 +8,14 @@ function NavBar(props){
     const [activeItem,handleActiveItem] = useState('Dashboard')
     const  handleItemClick = (e, { name }) => handleActiveItem(name)
 
-    const handleLogin = ()=>{
+    const handleLogout = ()=>{
       logout()
-      props.history.push('/login')
+      props.history.push('/logout')
      
     } 
     return(
         <Menu pointing secondary>
-          <NavLink to='/' exact>
+          <NavLink to='/dashboard' exact>
           <Menu.Item
 
             name='Dashboard'
@@ -36,7 +36,7 @@ function NavBar(props){
           <Menu.Item
             name='Leaderboard'
             active={activeItem === 'Leaderboard'}
-            onClick={handleLogin}
+            
             onClick={handleItemClick}
             
           />
@@ -49,7 +49,7 @@ function NavBar(props){
               active={activeItem === 'logout'}              
               onClick={handleItemClick}
             />
-            <Icon name='log out' size='big' link onClick={handleLogin} />
+            { isAuthenticated && (<Icon name='log out' size='big' link onClick={handleLogout} />)}
           </Menu.Menu>
         </Menu>
     )   

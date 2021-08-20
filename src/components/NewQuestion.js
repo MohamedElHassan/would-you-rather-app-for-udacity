@@ -39,7 +39,7 @@ function NewQuestion(props) {
     setToHome(true)
   };
   if(toHome === true){
-    return <Redirect to='/'/>
+    return <Redirect to='/dashboard'/>
   }
     
   return (
