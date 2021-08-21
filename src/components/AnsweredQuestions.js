@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter} from "react-router-dom";
-import { Card, Image, Button} from "semantic-ui-react";
+import { Card, Image, Button, Icon} from "semantic-ui-react";
 
 function AnsweredQuestions(props) {
     const question = props.questions[props.id];
@@ -9,7 +9,7 @@ function AnsweredQuestions(props) {
 
     const handleQuestion = (e) => {
       e.preventDefault();
-      props.history.push(`/poll/${question.id}`) 
+      props.history.push(`/questions/${question.id}`) 
     };
   return (
     <div>

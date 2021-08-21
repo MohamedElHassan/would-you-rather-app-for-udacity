@@ -2,8 +2,9 @@ import React ,{ useState , useEffect} from "react";
 import { Button, Dropdown ,  Header , Segment} from "semantic-ui-react";
 import { connect } from "react-redux";
 import { setAuthedUser} from '../actions/authedUser'
-import { withRouter } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
 import { useDispatch } from 'react-redux'
+import { login } from '../loginAuth'
 function Login(props) {
   useEffect(()=>{
     // const {
@@ -11,13 +12,14 @@ function Login(props) {
     //   location: { pathname }
     // } = this.props;
     // this.referrer = pathname;
-    props.history.push("/login");
-  
+    props.history.push('/');
+    
 
   }, []);
 
   const dispatch = useDispatch()
   const [user, handleUser] = useState('')
+  const [toReferrer, redirectToReferrer] = useState(false)
   const { users } = props;
   const handleChange = (e,result) => {
     e.preventDefault();
@@ -25,15 +27,23 @@ function Login(props) {
     
   };
   const handleLogin = ()=>{
+    if(toReferrer === false){
+      props.history.push('/dashboard')
+      redirectToReferrer(true)
+    }
     if(user !== ''){
       dispatch(setAuthedUser(user))
+      
     }
+    login()
     
-
-    props.history.push('/dashboard')
+    
+    console.log(props.location)
+   
   }
   
- 
+  
+  const { from } = props.location.state || { from: {pathname: '/'}}
   
   const usersOption = users.map((user) => {
     return {
@@ -47,6 +57,10 @@ function Login(props) {
   // if(toHome === true){
   //   return <Redirect to='/' />
   // }
+
+  if(toReferrer === true){
+    return <Redirect to={from.pathname} />
+  }
  return (
    
     <div>

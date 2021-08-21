@@ -2,13 +2,14 @@ import React from "react";
 import { connect } from "react-redux";
 import { Card, Image, Button } from "semantic-ui-react";
 import { withRouter } from 'react-router-dom'
+
 function UnAnsweredQuestions(props) {
     const question = props.questions[props.id];
     const author = props.users[question.author];
     
 const handleQuestion = (e) => {
     e.preventDefault();
-    props.history.push(`/poll/${question.id}`)
+    props.history.push(`/questions/${question.id}`)
     
 };
   return (

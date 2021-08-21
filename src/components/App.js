@@ -1,5 +1,5 @@
 import React, { Fragment , Component}  from "react";
-import { BrowserRouter , Route , Switch } from "react-router-dom";
+import { BrowserRouter , Redirect, Route , Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import Dashboard from "./Dashboard";
 import "semantic-ui-css/semantic.min.css";
@@ -10,39 +10,51 @@ import QuestionPage from './QuestionPage'
 import NavBar from "./NavBar";
 import PageNotFound from './PageNotFound'
 import Logout from "./Logout";
+import ProtectedRoute from '../protectedRoute'
 class App extends Component {
 
   render() {
   
   const { authedUser } = this.props;
+  
   if (!authedUser) {
     return (
-      <BrowserRouter>
+    <Fragment>
+    
+    <NavBar/>
         <Switch>
+        
           <Route  path="/" component={Login} />
+
         </Switch>
-      </BrowserRouter>
+     
+    </Fragment>
     );
   }
   return (
-    <BrowserRouter>
+    
       <Fragment>
        
-      <NavBar/>
+       <NavBar/>
         <div  style={{ marginTop: "7em" }}>
-          <Switch> 
-            <Route path='/dashboard' component={Dashboard}/>
-            <Route path='/new'  component={NewQuestion} />
-            <Route path='/logout' exact component={Logout} />
-            <Route path='/leaderboard' component={Leaderboard}/>
-            <Route path='/poll/:id' component={QuestionPage} />   
+          <Switch>
+            
+            <ProtectedRoute path='/dashboard' component={Dashboard}/>
+            <ProtectedRoute path='/add'  component={NewQuestion} />
+            <ProtectedRoute path='/leaderboard' component={Leaderboard}/>
+            {/* <Route path='/logout' exact component={Logout} /> */}
+            <Route path='/questions/:id' component={QuestionPage} />
+            
+            {/* <Route  path="/" component={Login} />   
+            <Route path='/'  component={PageNotFound} /> */}
             <Route path="/404" exact component={PageNotFound} />
-            <Route path="/"  component={PageNotFound} />
+            <Route  path="/" component={Login} />
+            {/* <Redirect to='/404'/> */}
           </Switch>
         </div>
         
       </Fragment>
-      </BrowserRouter>
+      
     
     
   );

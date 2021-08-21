@@ -8,7 +8,12 @@ const protectedRoute = ({ component: Component, exact, path }) => (
         isAuthenticated() ? (
         <Component {...props}/> )
        : 
-        (<Redirect to='/' />)
+        (<Redirect to={{
+          pathname:'/',
+          state:{
+            from:props.location
+          }
+        }} />)
       
     }
   />

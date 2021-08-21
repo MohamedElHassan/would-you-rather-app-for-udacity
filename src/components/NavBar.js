@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { Icon, Menu } from 'semantic-ui-react'
 import {connect} from 'react-redux'
-import { NavLink ,withRouter} from 'react-router-dom'
+import { NavLink ,Redirect,withRouter} from 'react-router-dom'
 import { logout , isAuthenticated } from '../loginAuth';
 function NavBar(props){
     const [activeItem,handleActiveItem] = useState('Dashboard')
@@ -9,7 +9,8 @@ function NavBar(props){
 
     const handleLogout = ()=>{
       logout()
-      props.history.push('/logout')
+      props.history.push('/')
+      
      
     } 
     return(
@@ -23,7 +24,7 @@ function NavBar(props){
           />
           </NavLink>
 
-          <NavLink to='/new' >
+          <NavLink to='/add' >
           <Menu.Item
             name='New Question'
             active={activeItem === 'New Question'}
@@ -48,7 +49,9 @@ function NavBar(props){
               active={activeItem === 'logout'}              
               onClick={handleItemClick}
             />
-            { isAuthenticated && (<Icon name='log out' size='big' link onClick={handleLogout} />)}
+           {isAuthenticated && (
+            <Icon name='log out' size='big' link onClick={handleLogout} />
+           )}
           </Menu.Menu>
         </Menu>
     )   

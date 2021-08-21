@@ -8,7 +8,7 @@ function Question(props) {
     
     const handleQuestion = (e) => {
       e.preventDefault();
-      props.history.push(`/poll/${question.id}`)
+      props.history.push(`/questions/${question.id}`)
       
     };
   return (

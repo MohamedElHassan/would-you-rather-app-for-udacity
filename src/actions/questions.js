@@ -46,7 +46,7 @@ export function handleReceiveQuestions() {
 //Continue Here
 export function handleSaveAnswer({authedUser,qid,answer}){
   return(dispatch)=>{
-    
+    // _saveQuestionAnswer({authedUser,qid,answer})
     return _saveQuestionAnswer({authedUser,qid,answer}).then(()=>{
       dispatch(answerQuestion({authedUser, qid, answer}))
       

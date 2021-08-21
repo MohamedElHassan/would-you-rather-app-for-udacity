@@ -1,10 +1,11 @@
 import React ,{useState} from 'react';
 import { connect } from 'react-redux'
-import { Card, Image, Button , Header ,Form, Radio } from "semantic-ui-react";
+import { Card, Image, Button , Header ,Form, Radio , Icon} from "semantic-ui-react";
 import { handleSaveAnswer } from '../actions/questions'
 import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
 function QuestionPage(props){
-
+    const [submit,handleSubmitValue] = useState(false)
     const [chooseValue,handleChooseValue] = useState('')
     const { id } = props.match.params
     const question = props.questions[id];
@@ -15,17 +16,15 @@ function QuestionPage(props){
         console.log(chooseValue)
     }
     const handleSubmit= (e)=>{
-        
-        e.preventDefault();
+        e.preventDefault()
         props.dispatch(handleSaveAnswer({authedUser:authedUser,qid:question.id,answer:chooseValue}))
-        props.history.push('/dashboard')
-        
-        
+        handleSubmitValue(true)
     }
-    
+
 return(
-    <div>
-    
+  
+    <div style={{marginTop:-70}}>
+    Return to Home <Link to='/dashboard'><Icon name='log out' size='big' link /></Link>
         <Header as='h1'>Question</Header>
       <Card>
         <Card.Content>
@@ -48,7 +47,7 @@ return(
             onChange={handleChange}
           />
         </Form.Field>
-
+          {submit === true ? 'Votes : ' + question.optionOne.votes.length + ' Out of ' + Object.keys(props.users).length +' Votes'  : null  }
         <Form.Field>
           <Radio
             label={question.optionTwo.text}
@@ -58,7 +57,7 @@ return(
             onChange={handleChange}
           />
         </Form.Field>
-
+        {submit === true ? 'Votes : ' + question.optionTwo.votes.length + ' Out of ' + Object.keys(props.users).length +' Votes'  : null  }
         </Card.Content>
         <Card.Content extra>
           <div className='ui two buttons'>
