@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { setAuthedUser} from '../actions/authedUser'
 import { Redirect, withRouter } from "react-router-dom";
 import { useDispatch } from 'react-redux'
-import { login } from '../loginAuth'
+import { isAuthenticated, login } from '../loginAuth'
 function Login(props) {
   // useEffect(()=>{
   //   // const {
@@ -33,19 +33,47 @@ function Login(props) {
       dispatch(setAuthedUser(user))
       
     }
-    console.log(props.location)
     login()
     redirectToReferrer(true)
-   
-    
   }
-  console.log(props.location)
-  const { from } = props.location.state || { from: {pathname: '/dashboard'}}
-  if(toReferrer === true){
+  // if(from.pathname === '/404' || isAuthenticated()){
+    
+  //   return <Redirect to={from} />
+  //   }
+
+  let { from } = props.location.state || { from: {pathname: '/dashboard'}}
+  console.log(from)
+  // from = /dadsjflsdjklf
   
+  const pages = ['/dashboard','/leaderboard','add']
+
+  if(!from.pathname.includes(pages)){
+
+    <Redirect to='/404' />
+  }
+  
+  console.log(from)
+  
+    console.log(from)
+
+// if(from !== '/dashboard' || '/add' || '/leaderboard' && toReferrer === false){
+//   redirectToReferrer(false)
+//   return <Redirect to={} />
+// }
+
+  if(toReferrer === true){
+    
   return <Redirect to={from} />
   
 }
+// if(from === '/dashboard'){
+//   redirectToReferrer(false)
+//   console.log('a7a')
+//   return props.history.push('/404')
+  
+// }
+
+
   
   const usersOption = users.map((user) => {
     return {

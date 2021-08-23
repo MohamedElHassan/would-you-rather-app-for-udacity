@@ -12,9 +12,24 @@ import PageNotFound from "./PageNotFound";
 import Logout from "./Logout";
 import ProtectedRoute from "../protectedRoute";
 import { logout } from "../loginAuth";
+
+// function NoMatch() {
+//   let location = useLocation();
+
+//   return (
+//     <div>
+//       <h3>
+//         No match for <code>{location.pathname}</code>
+//       </h3>
+//     </div>
+//   );
+// }
 class App extends Component {
+  
   render() {
     const { authedUser } = this.props;
+    
+    
 
     // if (!authedUser) {
     //   return (
@@ -34,20 +49,35 @@ class App extends Component {
           <Switch>
             <Route path='/' exact render={(props)=>  <Login {...props}/>
             }/>
+            <ProtectedRoute path='/404' component={PageNotFound} />
             <ProtectedRoute path='/dashboard' component={Dashboard} />
             <ProtectedRoute path='/add' component={NewQuestion} />
             <ProtectedRoute path='/leaderboard' component={Leaderboard} />
             <ProtectedRoute path='/questions/:id' component={QuestionPage} />
+            
             <Route path='/' render={()=>{
-              logout()
-              return <PageNotFound/>
-              
+              logout() 
+              return <Redirect to={{
+                pathname:'/',
+                state:{
+                  from:{pathname: '/404'},
+                  
+                      }
+                }} />
+
             }} />
-            {/* <Route path='/logout' exact component={Logout} /> */}
-            {/* <Route path='/'  component={PageNotFound} /> */}
-            {/* <Route path='/' component={Login} /> */}
-            {/* <Redirect to='/404'/> */}
+            
+            {/* <Route path='/404' component={PageNotFound} /> */}
+            
+            
+            {/* <Route path="*">
+
+            <Login />
+            <PageNotFound />
+          </Route> */}
+         
           </Switch>
+          
         </div>
       </Fragment>
     );

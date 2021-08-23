@@ -9,6 +9,10 @@ function QuestionPage(props){
     const [submit,handleSubmitValue] = useState(false)
     const [chooseValue,handleChooseValue] = useState('')
     const { id } = props.match.params
+
+    // if(){
+
+    // }
     //includes
     const questions = Object.keys(props.questions)
     if(!questions.includes(id)){
