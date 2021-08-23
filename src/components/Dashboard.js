@@ -4,7 +4,9 @@ import Question from "./Question";
 import { Header , Divider, Grid,  Segment  } from "semantic-ui-react";
 import AnsweredQuestions from "./AnsweredQuestions";
 import UnAnsweredQuestions from "./UnAnsweredQuestions";
-function Dashboard({questionId , answeredQuestions , unAnsweredQuestions}) {
+import { Redirect } from "react-router-dom";
+import { logout } from '../loginAuth';
+function Dashboard({questionId , answeredQuestions , unAnsweredQuestions ,authedUser}) {
   // // // const userList = Object.keys(users).forEach(uid => {
   // // //   const user = users[uid];
   // // //   const answeredQuestions = Object.keys(user.answers).length;
@@ -13,6 +15,15 @@ function Dashboard({questionId , answeredQuestions , unAnsweredQuestions}) {
   // // //   usersWithScore[uid] = user;
   // // });
   // console.log(userList)
+
+
+
+  if(!authedUser){
+    logout()
+    console.log('Hello world')
+   return <Redirect to='/'/>
+    
+  }
 
   questionId.map((qId)=>(
     <div key={qId}>
@@ -58,6 +69,13 @@ function mapStateToProps({ users, questions, authedUser }) {
   // console.log(authedUser, users);
   // output the questions array and filter it to exclude the answered Questions
   // const answeredQuestions = Object.keys(user.answers).length;
+  if(!authedUser){
+    logout()
+    console.log('Hello world')
+   return <Redirect to='/'/>
+    
+  }
+  
   const user = users[authedUser];
   const answeredQuestions = Object.keys(user.answers);
   const unAnsweredQuestions = Object.keys(questions).filter((q) =>
@@ -74,6 +92,7 @@ function mapStateToProps({ users, questions, authedUser }) {
     unAnsweredQuestions :  unAnsweredQuestions.sort(
       (a, b) => questions[b].timestamp - questions[a].timestamp
     ),
+    authedUser,
   };
 }
 

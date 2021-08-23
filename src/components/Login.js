@@ -6,16 +6,16 @@ import { Redirect, withRouter } from "react-router-dom";
 import { useDispatch } from 'react-redux'
 import { login } from '../loginAuth'
 function Login(props) {
-  useEffect(()=>{
-    // const {
-    //   history,
-    //   location: { pathname }
-    // } = this.props;
-    // this.referrer = pathname;
-    props.history.push('/');
+  // useEffect(()=>{
+  //   // const {
+  //   //   history,
+  //   //   location: { pathname }
+  //   // } = this.props;
+  //   // this.referrer = pathname;
+  //   props.history.push('/');
     
 
-  }, []);
+  // }, []);
 
   const dispatch = useDispatch()
   const [user, handleUser] = useState('')
@@ -26,24 +26,26 @@ function Login(props) {
     handleUser(result.value)
     
   };
+  
   const handleLogin = ()=>{
-    if(toReferrer === false){
-      props.history.push('/dashboard')
-      redirectToReferrer(true)
-    }
+    
     if(user !== ''){
       dispatch(setAuthedUser(user))
       
     }
-    login()
-    
-    
     console.log(props.location)
+    login()
+    redirectToReferrer(true)
    
+    
   }
+  console.log(props.location)
+  const { from } = props.location.state || { from: {pathname: '/dashboard'}}
+  if(toReferrer === true){
   
+  return <Redirect to={from} />
   
-  const { from } = props.location.state || { from: {pathname: '/'}}
+}
   
   const usersOption = users.map((user) => {
     return {
@@ -57,10 +59,7 @@ function Login(props) {
   // if(toHome === true){
   //   return <Redirect to='/' />
   // }
-
-  if(toReferrer === true){
-    return <Redirect to={from.pathname} />
-  }
+ 
  return (
    
     <div>

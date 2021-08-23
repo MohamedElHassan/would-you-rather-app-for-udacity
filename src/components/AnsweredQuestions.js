@@ -9,7 +9,8 @@ function AnsweredQuestions(props) {
 
     const handleQuestion = (e) => {
       e.preventDefault();
-      props.history.push(`/questions/${question.id}`) 
+      props.history.push(`/questions/${question.id}`)
+      
     };
   return (
     <div>
